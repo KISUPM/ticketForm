@@ -19,8 +19,10 @@ export default function Ticket() {
             draggable: true,
             progress: undefined,
             theme: "light",
-          });
+        });
         console.log(data);
+
+        console.log(data.ticketImage)
     }
 
     const clearForm = () => {
@@ -30,6 +32,7 @@ export default function Ticket() {
     }
     return (
         <form id="form" onSubmit={handleSubmit(onSubmitData)}>
+            <ToastContainer />
             <Box p="20px">
                 <Controller
                     name="senderName"
@@ -102,14 +105,22 @@ export default function Ticket() {
                 <Controller
                     name="ticketImage"
                     control={control}
-                    defaultValue={""}
+                    defaultValue={null}
                     render={({ field }) => (
                         <FormControl>
                             <FormLabel>Attractment</FormLabel>
                             <Input
+                                pl="0"
+                                pt="5px"
+                                ml="0"
+
+                                border="none"
                                 type="file"
                                 accept='image/png,image/jpg,image/jpeg'
-                                {...field}
+                                onChange={(event) => {
+                                    const file = event.target.files?.[0];
+                                    field.onChange(file);
+                                  }}
                             />
                         </FormControl>
                     )}
